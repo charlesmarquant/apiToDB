@@ -1,16 +1,25 @@
-# This is a sample Python script.
+import requests
+import duckdb
+import pandas as pd
 
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+## Connect to db
+duckdb = duckdb.connect("local.db")
 
+## Drop table
+duckdb.sql("DROP TABLE main.pokemon")
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
+## Call API
+response = requests.get("https://pokeapi.co/api/v2/pokemon/?limit=151")
 
+## Put json data into a table
+json_data = response.json()
+table_data = pd.json_normalize(json_data['results'])
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+## Create table from dataframe
+duckdb.sql("CREATE TABLE main.pokemon AS SELECT * FROM table_data")
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+## Insert data
+duckdb.sql("INSERT INTO main.pokemon SELECT * FROM table_data")
+
+## Show data from table
+duckdb.sql("SELECT * FROM main.pokemon").show()
