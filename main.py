@@ -1,25 +1,30 @@
 import requests
-import duckdb
+import dbutil
 import pandas as pd
 
+## Connect to MySQL database
+connectDB = dbutil.connect_to_mysql()
+
+print(connectDB)
+
 ## Connect to db
-duckdb = duckdb.connect("local.db")
+##duckdb = duckdb.connect("local.db")
 
 ## Drop table
-duckdb.sql("DROP TABLE main.pokemon")
+##duckdb.sql("DROP TABLE main.pokemon")
 
 ## Call API
-response = requests.get("https://pokeapi.co/api/v2/pokemon/?limit=151")
+##response = requests.get("https://pokeapi.co/api/v2/pokemon/?limit=151")
 
 ## Put json data into a table
-json_data = response.json()
-table_data = pd.json_normalize(json_data['results'])
+##json_data = response.json()
+##table_data = pd.json_normalize(json_data['results'])
 
 ## Create table from dataframe
-duckdb.sql("CREATE TABLE main.pokemon AS SELECT * FROM table_data")
+##duckdb.sql("CREATE TABLE main.pokemon AS SELECT * FROM table_data")
 
 ## Insert data
-duckdb.sql("INSERT INTO main.pokemon SELECT * FROM table_data")
+##duckdb.sql("INSERT INTO main.pokemon SELECT * FROM table_data")
 
 ## Show data from table
-duckdb.sql("SELECT * FROM main.pokemon").show()
+##duckdb.sql("SELECT * FROM main.pokemon").show()
