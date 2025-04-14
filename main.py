@@ -15,7 +15,6 @@ response = requests.get("https://pokeapi.co/api/v2/pokemon/?limit=151")
 json_data = response.json()
 print(json_data)
 table_data = pd.json_normalize(data=json_data['results'],meta=['name', 'url'])
-#print(table_data)
 
 
 ## Insert data
