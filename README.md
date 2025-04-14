@@ -1,1 +1,1 @@
-Exctract Data from API to a local DuckDB
+Exctract Data from API to mysql DB
