@@ -1,8 +1,8 @@
 import pymysql
 
-
+## Load the database configuration from a file 
 def read_config():
-    ## Load the database configuration from a file  
+     
     config = {}
     with open("/Users/carlito/Desktop/python/apiToDB/db_config.txt", "r") as file:
         for line in file:
@@ -10,8 +10,9 @@ def read_config():
             config[key] = value
     return config
 
+## Connect to the database 
 def connect_to_mysql():
-    ## Connect to the database 
+    
     dbconf = read_config()
     try:
         connection = pymysql.connect(
@@ -33,9 +34,9 @@ def connect_to_mysql():
         print(f"Error: {err}")
         return None
     
-
+## Insert data into the database
 def insert_to_mysql(connection, sql):
-    ## Insert data into the database
+    
     try:
         with connection.cursor() as cursor:
             cursor.execute(sql)
