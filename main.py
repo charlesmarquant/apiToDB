@@ -3,9 +3,9 @@ import dbutil
 import pandas as pd
 
 ## Connect to MySQL database
-connectDB = dbutil.connect_to_mysql()
+connect_db = dbutil.connect_to_mysql()
 
-print(connectDB)
+print(connect_db)
 
 ## Call API
 response = requests.get("https://pokeapi.co/api/v2/pokemon/?limit=151")
@@ -23,5 +23,5 @@ for index, row in table_data.iterrows():
     url = row[1]
     sql = f"INSERT INTO stgPokemon (pokemonName, pokemonUrl) VALUES ('{name}', '{url}') ON DUPLICATE KEY UPDATE pokemonUrl = '{url}'"
     print(sql)
-    dbutil.insert_to_mysql(connectDB, sql)
+    dbutil.insert_to_mysql(connect_db, sql)
 

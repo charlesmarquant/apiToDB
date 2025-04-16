@@ -13,19 +13,19 @@ def read_config():
 ## Connect to the database 
 def connect_to_mysql():
     
-    dbconf = read_config()
+    db_conf = read_config()
     try:
         connection = pymysql.connect(
-            charset=dbconf["charset"],
-            connect_timeout=int(dbconf["timeout"]),
+            charset=db_conf["charset"],
+            connect_timeout=int(db_conf["timeout"]),
             cursorclass=pymysql.cursors.DictCursor,
-            db=dbconf["db"],
-            host=dbconf["host"],
-            password=dbconf["password"],
-            read_timeout=int(dbconf["timeout"]),
-            port=int(dbconf["port"]),
-            user=dbconf["user"],
-            write_timeout=int(dbconf["timeout"])
+            db=db_conf["db"],
+            host=db_conf["host"],
+            password=db_conf["password"],
+            read_timeout=int(db_conf["timeout"]),
+            port=int(db_conf["port"]),
+            user=db_conf["user"],
+            write_timeout=int(db_conf["timeout"])
         )
         if connection.open:
             print("Successfully connected to the database")
